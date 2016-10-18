@@ -1,6 +1,26 @@
- h5{
+h1{
+    color:red;
+} 
+h5{
     color:gold;
       }
   h6{
     color:saddlebrown;
      }
+#Sample{
+    color:blue;
+}
+.Sample2{
+    color:green;
+}
+
+ul{
+    display:flex;
+    list-style:none;
+    flex-direction: row;
+}
+@media screen and (max-width: 480px) {
+    ul{
+        flex-direction:column;
+    }
+}
