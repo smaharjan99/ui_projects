@@ -38,3 +38,10 @@ console.log(add(calcObj.getNum1(),calcObj.getNum2()));
 console.log(subtract(calcObj.getNum1(),calcObj.getNum2()));
 console.log(multiply(calcObj.getNum1(),calcObj.getNum2()));
 console.log(divide(calcObj.getNum1(),calcObj.getNum2()));
+
+//document.getElementById("id")value;
+//<button onClick="test()">
+//function test (){var num1, num2
+//num1=document.getElementById("n1").value
+//num2=....
+//var calcObj new calculation();}
