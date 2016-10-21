@@ -1,4 +1,18 @@
 "use strict";
+//same as $(document).ready(function(){});
+$(function(){
+    $("#dob").datepicker();
+    $( "#tabs" ).tabs();
+  //  $( ".results" ).accordion();
+  $("#submit").click(submit);
+    //$("#display").on("click", display);
+    // $("#display").off("click");
+   /* $("#test").on("click",function(){
+       $("#submit").trigger("click");
+        $("#display").trigger("click");
+    });*/
+  });
+
 function Person(){
     //Private Variables
     var firstName="";
@@ -12,7 +26,7 @@ function Person(){
     //Setter and Getter Methods
     this.setFirstName=function(fname){
         firstName=fname;
-    }
+    } 
     this.getFirstName = function(){
         return firstName;
     }
@@ -35,6 +49,7 @@ function Person(){
         gender = gen;
     }
     this.getGender = function(){
+            
         return gender;
     }
     
@@ -65,6 +80,7 @@ function Person(){
         console.log("Last Name - " + lastName);
         console.log("Address- "+ address);
         console.log("DOB - "+ dob);
+        console.log("Gender - "+ gender);
         console.log("Country - "+ country);
         if (cars.length > 0){
             console.log("Cars - ")
@@ -75,50 +91,87 @@ function Person(){
     }
 }
 var personArray=[]; 
+/*
+        var genderName = document.getElementByName("gender");
+    for(int i =0; i<genderName.length; i++){
+        if (genderName[i].checked){
+            return genderName[i];
+        }
+    }
+   */
 
 function submit(){
     var personObj =new Person();
-    var firstName = document.getElementById("firstName").value;
-    var lastName = document.getElementById("lastName").value;
-    var address = document.getElementById("address").value;
-    var dob= document.getElementById("dob").value;
-    var gender = document.getElementsByName("gender").value;
-    var country = document.getElementById("country").value;
+    
+    var firstName =$("#firstName") .val();//document.getElementById("firstName").value;
+    var lastName =$("#lastName") .val();// document.getElementById("lastName").value;
+    var address = $("#address") .val();//document.getElementById("address").value;
+    var dob= $("#dob") .val();//document.getElementById("dob").value;  
+    var country = $("#country") .val();//document.getElementById("country").value;
+    var gender = $("#gender:checked").val();
+    var carsArray=[];
+    var cars = document.getElementsByName("cars");
+    for(var i =0; i<cars.length; i++){
+        if (cars[i].checked){
+            carsArray.push(cars[i].value);
+        }
+    }
+    
     personObj.setFirstName(firstName);
     personObj.setLastName(lastName);
     personObj.setAddress(address);
     personObj.setDob(dob);
     personObj.setCountry(country);
     personObj.setGender(gender);
-   
+    personObj.setCars(carsArray);
     personObj.checkData();
     personArray.push(personObj);
     console.log(personArray);
+    display();
     
 }
+//$("#gender:checked").val();
 
 function generateTable(sample){
     var template = "";
     var i = 1;
     
+   template += "<div class='accordion'>";
     sample.forEach(function(x){
-        template +="ITEM "+i +"<br>";
+              
+       template +="<h3>"+x.getLastName()+","+x.getFirstName()+"</h3>";
+        template += "<div>";
+        //template +="ITEM "+i +"<br>";
         template +="First Name - " + x.getFirstName() +"<br>";
         template +="Last Name - " + x.getLastName() +"<br>";
         template +="DOB - " + x.getDob() +"<br>";
         template +="Gender - " + x.getGender() +"<br>";
         template +="Address - " + x.getAddress() +"<br>";
         template +="Country - " + x.getCountry() +"<br>";
-        template += "<hr>"
+        template +="Cars - "+x.getCars()+"<br>";
+        //template += "<hr>"
+        template +="</div>";
+        
         i++;
-       // x.checkData();
+    //x.checkData();
     });
+   
+    template +="</div>";
     return template;
 }
 
 function display(){
     var result =generateTable(personArray);
-    document.getElementById("results").innerHTML=result;
+   //result="Hello World";
+    //document.getElementById("results").innerHTML=result;
+    $("#resultTab").html(result);
+    $(".accordion" ).accordion({
+        collapsible :true,
+        active:true,
+        heightStyle:"content",
+      
+        
+    });
     
 }
 /*
