@@ -4,6 +4,11 @@
     <title>PeopleTAB</title>
         <link rel="stylesheet" href="/node_modules/ui_jquery/jquery-ui.css">
           <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
+        <style>
+            .error-msg{
+            color:red;
+            }
+        </style>
 
     </head>
     <body>
@@ -23,6 +28,9 @@
                 <div class="col-md-4">
                     <input type="text" name="firstName" id="firstName" placeholder="Enter First Name">
                 </div>
+                <div class="col-md-2">
+                    <span class="error-msg" id="fnameErr">Invalid First Name</span>
+                </div>
             </div>
              <div class="row">
                 <div class="col-md-2">
@@ -30,6 +38,9 @@
                 </div>
                 <div class="col-md-4">
                     <input type="text" name="lastName" id="lastName" placeholder="Enter Last Name">
+                </div>
+                 <div class="col-md-2">
+                    <span class="error-msg" id="lnameErr">Invalid Last Name</span>
                 </div>
             </div>
 
@@ -39,6 +50,9 @@
                 </div>
                 <div class="col-md-4">
                     <input type="text" name="dob" id="dob" placeholder="Enter Date of Birth">
+                </div>
+            <div class="col-md-2">
+                <span class="error-msg" id="dobErr">Invalid Date</span>
                 </div>
             </div>
               <div class="row">
@@ -59,6 +73,9 @@
                 </div>
                 <div class="col-md-4">
                     <input type="text" name="address" id="address" placeholder="Enter Address">
+                </div>
+                <div class="col-md-2">
+                    <span class="error-msg" id="addErr">Invalid Address</span>
                 </div>
             </div>
               <div class="row">
@@ -138,6 +155,7 @@
                 </div>
         </form>
           <button id="submit" >Submit</button>
+          <button id="validate">Validate</button>
       </div>
     
         
@@ -146,10 +164,12 @@
       </div>
         
       <div id="nothingTab">
-
+          <img src="http://i.imgur.com/YlDMlZw.jpg" style="width:1000px;height:600px;">
       </div>
     </div>
 
+        <h1 id="sample">This is a sample for hide and show</h1>
+        <button id="sampleBtn" class="btn btn-primary">Toggle Hide/Show</button>
 
         <footer>
          <button type="button" class="btn btn-default"><a href = "/view/contents.html">BACK</a></button>

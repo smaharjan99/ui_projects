@@ -1,16 +1,22 @@
-"use strict";
+'use strict';
 //same as $(document).ready(function(){});
 $(function(){
     $("#dob").datepicker();
     $( "#tabs" ).tabs();
   //  $( ".results" ).accordion();
   $("#submit").click(submit);
-    //$("#display").on("click", display);
+  /*  //$("#display").on("click", display);
     // $("#display").off("click");
    /* $("#test").on("click",function(){
        $("#submit").trigger("click");
         $("#display").trigger("click");
     });*/
+    $("#sample").hide();
+    $("#sampleBtn").on("click", toggleHide);
+    //toggleHide();
+    
+    $("#validate").on("click", validate);
+    $(".error-msg").hide();
   });
 
 function Person(){
@@ -174,6 +180,57 @@ function display(){
     });
     
 }
+function validate(){
+    var error = 0;
+    var regEx = new RegExp('^([a-z]|[A-Z])([a-z]|[A-Z]|[1-9])+$', 'g');
+    
+    var firstName = $("#firstName").val();
+    console.log(firstName.match(regEx));
+    var lastName = $("#lastName").val();
+    var address = $("#address").val();
+    var dob = $("#dob").val();
+    
+    if (firstName.length == 0 || firstName.match(regEx)==null){
+         $("#fnameErr").show();
+    }else{
+        $("#fnameErr").hide();
+    }
+    if (lastName.length == 0 || lastName.match(regEx)==null){
+          $("#lnameErr").show();
+    }else{
+         $("#lnameErr").hide();
+    }
+    if (address.length == 0 || address.match(regEx)==null){
+         $("#addErr").show();
+    }else{
+        $("#addErr").hide();
+    }
+    if (dob.length == 0){
+       $("#dobErr").show();
+    }else{
+        $("#dobErr").hide();
+    }
+  /*  if (error>0){
+        $(".error.msg").show();
+    }else{
+        $(".error.msg").hide();
+    }
+    console.log(error + " errors found");*/
+}
+
+function toggleHide(){
+    
+    if ($("#sample").is(":visible")){
+        $("#sample").hide();
+    }else{
+        $("#sample").show();
+    }
+}
+
+/*
+var temp ="car";
+car temp2="";
+console.log(temp2.length);*/
 /*
 var personArray=[];
 //Creating Object
