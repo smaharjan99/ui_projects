@@ -154,8 +154,8 @@
                     
                 </div>
         </form>
-          <button id="submit" >Submit</button>
-          <button id="validate">Validate</button>
+          <button id="submit" class="btn btn-primary">Submit</button>
+          <button id="validate" class="btn btn-success">Validate</button>
       </div>
     
         
@@ -170,12 +170,30 @@
 
         <h1 id="sample">This is a sample for hide and show</h1>
         <button id="sampleBtn" class="btn btn-primary">Toggle Hide/Show</button>
+        
+        <!--dialog container below-->
+        
+        <div id="dialog" title="Errors">
+            <p><span id="errorCount"></span> Errors Found. Halted due to your negligence in inputing. Proceed to correct yourself and stop being a moron.</p>
+        </div>
+        
+        <div id="formDialog" title="Sample Form">
+            <form>
+                First Name: <input type="text" name="firstName"><br>
+                Last Name: <input type="text" name="lastName"><br>
+            </form>
+        
+        </div>
+        
+        <button id="openForm" class="btn">Open Form</button>
 
-        <footer>
+        
          <button type="button" class="btn btn-default"><a href = "/view/contents.html">BACK</a></button>
-            </footer>
+            
+       
         <script type="text/javascript" src="/node_modules/jquery/dist/jquery.js"></script>
-        <script type="text/javascript" src="/node_modules/ui_jquery/jquery-ui.js"></script>
+         <script type="text/javascript" src="/node_modules/ui_jquery/jquery-ui.js"></script>
+        
         <script type="text/javascript" src="/scripts/person.js"></script>
 
     </body>

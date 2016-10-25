@@ -1,14 +1,15 @@
 'use strict';
 //same as $(document).ready(function(){});
+//Jquery functions 
 $(function(){
     $("#dob").datepicker();
     $( "#tabs" ).tabs();
   //  $( ".results" ).accordion();
-  $("#submit").click(submit);
-  /*  //$("#display").on("click", display);
-    // $("#display").off("click");
-   /* $("#test").on("click",function(){
-       $("#submit").trigger("click");
+  $("#submit").click(submit).prop("disabled",true);
+  /* $("#display").on("click", display);
+     $("#display").off("click");
+     $("#test").on("click",function(){
+        $("#submit").trigger("click");
         $("#display").trigger("click");
     });*/
     $("#sample").hide();
@@ -17,6 +18,29 @@ $(function(){
     
     $("#validate").on("click", validate);
     $(".error-msg").hide();
+    
+    $("#dialog").dialog({
+        autoOpen: false
+    });
+    
+    
+    $("#formDialog").dialog({
+        autoOpen:false,
+        modal:true,
+        buttons: {
+        "Submit": function() {
+          alert("Submitting");
+            //$( this ).dialog( "close" );
+        },
+        Cancel: function() {
+          $( this ).dialog( "close" );
+        }
+    }
+    });
+    
+    $("#openForm").on("click",function(){
+       $("#formDialog").dialog("open") ;
+    });
   });
 
 function Person(){
@@ -105,7 +129,7 @@ var personArray=[];
         }
     }
    */
-
+//Submit function in the button
 function submit(){
     var personObj =new Person();
     
@@ -122,22 +146,52 @@ function submit(){
             carsArray.push(cars[i].value);
         }
     }
+    var error = 0;
+    var regEx = new RegExp('^([a-z]|[A-Z])([a-z]|[A-Z]|[1-9])+$', 'g');
     
-    personObj.setFirstName(firstName);
-    personObj.setLastName(lastName);
-    personObj.setAddress(address);
-    personObj.setDob(dob);
-    personObj.setCountry(country);
-    personObj.setGender(gender);
-    personObj.setCars(carsArray);
-    personObj.checkData();
-    personArray.push(personObj);
-    console.log(personArray);
-    display();
-    
+    if (firstName.length == 0 || firstName.match(regEx)==null){
+         $("#fnameErr").show();
+        error++;
+    }else{
+        $("#fnameErr").hide();
+    }
+    if (lastName.length == 0 || lastName.match(regEx)==null){
+          $("#lnameErr").show();
+        error++
+    }else{
+         $("#lnameErr").hide();
+    }
+    if (address.length == 0 || address.match(regEx)==null){
+         $("#addErr").show();
+        error++;
+    }else{
+        $("#addErr").hide();
+    }
+    if (dob.length == 0){
+       $("#dobErr").show();
+        error++;
+    }else{
+        $("#dobErr").hide();
+    }
+    if (error==0){
+        personObj.setFirstName(firstName);
+        personObj.setLastName(lastName);
+        personObj.setAddress(address);
+        personObj.setDob(dob);
+        personObj.setCountry(country);
+        personObj.setGender(gender);
+        personObj.setCars(carsArray);
+        personObj.checkData();
+        personArray.push(personObj);
+        console.log(personArray);
+        display();
+    }else{
+         $("#dialog").dialog("open");
+    }
+        
 }
 //$("#gender:checked").val();
-
+//generatetab with HTML content to be displayed
 function generateTable(sample){
     var template = "";
     var i = 1;
@@ -153,7 +207,7 @@ function generateTable(sample){
         template +="DOB - " + x.getDob() +"<br>";
         template +="Gender - " + x.getGender() +"<br>";
         template +="Address - " + x.getAddress() +"<br>";
-        template +="Country - " + x.getCountry() +"<br>";
+        template +="State - " + x.getCountry() +"<br>";
         template +="Cars - "+x.getCars()+"<br>";
         //template += "<hr>"
         template +="</div>";
@@ -166,6 +220,7 @@ function generateTable(sample){
     return template;
 }
 
+//display function with accordion style
 function display(){
     var result =generateTable(personArray);
    //result="Hello World";
@@ -180,36 +235,55 @@ function display(){
     });
     
 }
+//validation function
 function validate(){
-    var error = 0;
-    var regEx = new RegExp('^([a-z]|[A-Z])([a-z]|[A-Z]|[1-9])+$', 'g');
-    
     var firstName = $("#firstName").val();
     console.log(firstName.match(regEx));
     var lastName = $("#lastName").val();
     var address = $("#address").val();
     var dob = $("#dob").val();
     
+    //Regular Expressions
+    var regEx = new RegExp('^([a-z]|[A-Z])([a-z]|[A-Z]|[1-9])+$', 'g');
+    
+    
+    var error=0;
     if (firstName.length == 0 || firstName.match(regEx)==null){
          $("#fnameErr").show();
+        error++;
     }else{
         $("#fnameErr").hide();
     }
     if (lastName.length == 0 || lastName.match(regEx)==null){
           $("#lnameErr").show();
+        error++;
     }else{
          $("#lnameErr").hide();
     }
     if (address.length == 0 || address.match(regEx)==null){
          $("#addErr").show();
+        error++;
     }else{
         $("#addErr").hide();
     }
     if (dob.length == 0){
        $("#dobErr").show();
+        error++;
     }else{
         $("#dobErr").hide();
     }
+    
+    if (error==0){
+        $("#submit").prop("disabled", false);
+    }else{
+        $("#submit").prop("disabled", true);
+    }
+    if (error>0){
+       $("#errorCount").html(error);
+        $("#dialog").dialog("open");
+    }
+    
+   
   /*  if (error>0){
         $(".error.msg").show();
     }else{
