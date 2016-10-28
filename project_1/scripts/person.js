@@ -1,126 +1,157 @@
 'use strict';
 //same as $(document).ready(function(){});
 //Jquery functions 
-$(function(){
+$(function () {
     $("#dob").datepicker();
-    $( "#tabs" ).tabs();
-  //  $( ".results" ).accordion();
-  $("#submit").click(submit).prop("disabled",true);
-  /* $("#display").on("click", display);
-     $("#display").off("click");
-     $("#test").on("click",function(){
-        $("#submit").trigger("click");
-        $("#display").trigger("click");
-    });*/
+    $("#editDob").datepicker();
+    $("#tabs").tabs();
+    //  $( ".results" ).accordion();
+    $("#submit").click(submit); //.prop("disabled",true);
+    /* $("#display").on("click", display);
+       $("#display").off("click");
+       $("#test").on("click",function(){
+          $("#submit").trigger("click");
+          $("#display").trigger("click");
+      });*/
     $("#sample").hide();
     $("#sampleBtn").on("click", toggleHide);
     //toggleHide();
-    
-    $("#validate").on("click", validate);
-    $(".error-msg").hide();
-    
-    $("#dialog").dialog({
-        autoOpen: false
-    });
-    
-    
-    $("#formDialog").dialog({
-        autoOpen:false,
-        modal:true,
-        buttons: {
-        "Submit": function() {
-          alert("Submitting");
-            //$( this ).dialog( "close" );
-        },
-        Cancel: function() {
-          $( this ).dialog( "close" );
-        }
-    }
-    });
-    
-    $("#openForm").on("click",function(){
-       $("#formDialog").dialog("open") ;
-    });
-  });
 
-function Person(){
+    //$("#validate").on("click", validate);
+    $(".error-msg").hide();
+
+    $("#dialog").dialog({
+        autoOpen: false,
+        buttons: {
+            "Fix IT": function () {
+                $(this).dialog("close");
+            }
+        }
+    });
+
+
+    $("#formDialog").dialog({
+        autoOpen: false,
+        modal: true,
+        buttons: {
+            "Submit": function () {
+
+                alert("Submitting");
+                //$( this ).dialog( "close" );
+            },
+            Cancel: function () {
+                $(this).dialog("close");
+            }
+        }
+    });
+
+    $("#editDialog").dialog({
+        autoOpen: false,
+        modal: true,
+        buttons: {
+            "Submit": function () {
+
+                editSubmit();
+                /* personObj.editFirstName(firstName);
+                 personObj.editLastName(lastName);
+                 personObj.editAddress(address);
+                 personObj.editDob(dob);
+                 personObj.editCountry(country);
+                 personObj.editGender(gender);
+                 personObj.editCars(carsArray);*/
+                // alert("Submitting");
+                //$( this ).dialog( "close" );
+            },
+            Cancel: function () {
+                $(this).dialog("close");
+            }
+        }
+    });
+    $("#openForm").on("click", function () {
+        $("#formDialog").dialog("open");
+    });
+
+
+});
+
+function Person() {
     //Private Variables
-    var firstName="";
-    var lastName="";
-    var dob ="";
+    var firstName = "";
+    var lastName = "";
+    var dob = "";
     var gender = "";
-    var country ="";
+    var country = "";
     var cars = [];
     var address = ""
- 
+
     //Setter and Getter Methods
-    this.setFirstName=function(fname){
-        firstName=fname;
-    } 
-    this.getFirstName = function(){
+    this.setFirstName = function (fname) {
+        firstName = fname;
+    }
+    this.getFirstName = function () {
         return firstName;
     }
-    
-    this.setLastName=function(lname){
-        lastName=lname;
+
+    this.setLastName = function (lname) {
+        lastName = lname;
     }
-    this.getLastName = function(){
+    this.getLastName = function () {
         return lastName;
     }
-    
-    this.setDob = function(d){
-        dob =d;
+
+    this.setDob = function (d) {
+        dob = d;
     }
-    this.getDob = function(){
+    this.getDob = function () {
         return dob;
     }
-    
-    this.setGender = function(gen){
+
+    this.setGender = function (gen) {
         gender = gen;
     }
-    this.getGender = function(){
-            
+    this.getGender = function () {
+
         return gender;
     }
-    
-    this.setCountry = function(con){
+
+    this.setCountry = function (con) {
         country = con;
     }
-    this.getCountry = function(){
+    this.getCountry = function () {
         return country;
     }
-    
-    this.setCars = function(carA){
+
+    this.setCars = function (carA) {
         cars = carA;
     }
-    this.getCars = function(){
+    this.getCars = function () {
         return cars;
     }
-    
-    this.setAddress = function(add){
+
+    this.setAddress = function (add) {
         address = add;
     }
-    this.getAddress = function(){
+    this.getAddress = function () {
         return address;
     }
-    
-    
-    this.checkData = function(){
+
+
+    this.checkData = function () {
         console.log("First Name - " + firstName);
         console.log("Last Name - " + lastName);
-        console.log("Address- "+ address);
-        console.log("DOB - "+ dob);
-        console.log("Gender - "+ gender);
-        console.log("Country - "+ country);
-        if (cars.length > 0){
+        console.log("Address- " + address);
+        console.log("DOB - " + dob);
+        console.log("Gender - " + gender);
+        console.log("Country - " + country);
+        if (cars.length > 0) {
             console.log("Cars - ")
-            cars.forEach(function(x){
+            cars.forEach(function (x) {
                 console.log(x);
             })
         }
     }
 }
-var personArray=[]; 
+var personArray = [];
 /*
         var genderName = document.getElementByName("gender");
     for(int i =0; i<genderName.length; i++){
@@ -130,50 +161,60 @@ var personArray=[];
     }
    */
 //Submit function in the button
-function submit(){
-    var personObj =new Person();
-    
-    var firstName =$("#firstName") .val();//document.getElementById("firstName").value;
-    var lastName =$("#lastName") .val();// document.getElementById("lastName").value;
-    var address = $("#address") .val();//document.getElementById("address").value;
-    var dob= $("#dob") .val();//document.getElementById("dob").value;  
-    var country = $("#country") .val();//document.getElementById("country").value;
+function submit() {
+    var personObj = new Person();
+
+    var firstName = $("#firstName").val(); //document.getElementById("firstName").value;
+    var lastName = $("#lastName").val(); // document.getElementById("lastName").value;
+    var address = $("#address").val(); //document.getElementById("address").value;
+    var dob = $("#dob").val(); //document.getElementById("dob").value;  
+    var country = $("#country").val(); //document.getElementById("country").value;
     var gender = $("#gender:checked").val();
-    var carsArray=[];
+    var carsArray = [];
     var cars = document.getElementsByName("cars");
-    for(var i =0; i<cars.length; i++){
-        if (cars[i].checked){
+    for (var i = 0; i < cars.length; i++) {
+        if (cars[i].checked) {
             carsArray.push(cars[i].value);
         }
     }
     var error = 0;
     var regEx = new RegExp('^([a-z]|[A-Z])([a-z]|[A-Z]|[1-9])+$', 'g');
-    
-    if (firstName.length == 0 || firstName.match(regEx)==null){
-         $("#fnameErr").show();
+
+    if (firstName.length == 0 || firstName.match(regEx) == null) {
+        $("#fnameErr").show();
         error++;
-    }else{
+    } else {
         $("#fnameErr").hide();
     }
-    if (lastName.length == 0 || lastName.match(regEx)==null){
-          $("#lnameErr").show();
+    if (lastName.length == 0 || lastName.match(regEx) == null) {
+        $("#lnameErr").show();
         error++
-    }else{
-         $("#lnameErr").hide();
+    } else {
+        $("#lnameErr").hide();
     }
-    if (address.length == 0 || address.match(regEx)==null){
-         $("#addErr").show();
+    if (address.length == 0 || address.match(regEx) == null) {
+        $("#addErr").show();
         error++;
-    }else{
+    } else {
         $("#addErr").hide();
     }
-    if (dob.length == 0){
-       $("#dobErr").show();
+    if (dob.length == 0) {
+        $("#dobErr").show();
         error++;
-    }else{
+    } else {
         $("#dobErr").hide();
     }
-    if (error==0){
+    if (error == 0) {
+        $("#submit").prop("disabled", false);
+    } else {
+        $("#submit").prop("disabled", false);
+    }
+    if (error > 0) {
+        $("#errorCount").html(error);
+        $("#dialog").dialog("open");
+    }
+
+    if (error == 0) {
         personObj.setFirstName(firstName);
         personObj.setLastName(lastName);
         personObj.setAddress(address);
@@ -185,58 +226,107 @@ function submit(){
         personArray.push(personObj);
         console.log(personArray);
         display();
-    }else{
-         $("#dialog").dialog("open");
+    } else {
+        $("#dialog").dialog("open");
     }
-        
+
 }
-//$("#gender:checked").val();
+
+
 //generatetab with HTML content to be displayed
-function generateTable(sample){
+function generateTable(sample) {
     var template = "";
     var i = 1;
-    
-   template += "<div class='accordion'>";
-    sample.forEach(function(x){
-              
-       template +="<h3>"+x.getLastName()+","+x.getFirstName()+"</h3>";
+    var index = 0;
+    template += "<div class='accordion'>";
+    sample.forEach(function (x) {
+
+        template += "<h3>" + x.getLastName() + ", " + x.getFirstName() + "</h3>";
+        //template +="<h3>"+"Edit"+"</h3>";
         template += "<div>";
         //template +="ITEM "+i +"<br>";
-        template +="First Name - " + x.getFirstName() +"<br>";
-        template +="Last Name - " + x.getLastName() +"<br>";
-        template +="DOB - " + x.getDob() +"<br>";
-        template +="Gender - " + x.getGender() +"<br>";
-        template +="Address - " + x.getAddress() +"<br>";
-        template +="State - " + x.getCountry() +"<br>";
-        template +="Cars - "+x.getCars()+"<br>";
+        template += "First Name - " + x.getFirstName() + "<button id='editButton' class='btn editButton' style='float:right;' val='" + index + "'>EDIT</button>" + "<br>";
+
+        template += "Last Name - " + x.getLastName() + "<br>";
+        template += "DOB - " + x.getDob() + "<br>";
+        template += "Gender - " + x.getGender() + "<br>";
+        template += "Address - " + x.getAddress() + "<br>";
+        template += "State - " + x.getCountry() + "<br>";
+        template += "Cars - " + x.getCars() + "<br>";
+        //template +="<button>"+x.submit+"</button>";
         //template += "<hr>"
-        template +="</div>";
-        
+        template += "</div>";
+
         i++;
-    //x.checkData();
+        index++;
+        //x.checkData();
     });
-   
-    template +="</div>";
+
+    template += "</div>";
     return template;
+
 }
 
 //display function with accordion style
-function display(){
-    var result =generateTable(personArray);
-   //result="Hello World";
+function display() {
+    var result = generateTable(personArray);
+    //result="Hello World";
     //document.getElementById("results").innerHTML=result;
     $("#resultTab").html(result);
-    $(".accordion" ).accordion({
-        collapsible :true,
-        active:true,
-        heightStyle:"content",
-      
-        
+    $(".accordion").accordion({
+        collapsible: true,
+        active: true,
+        heightStyle: "content",
     });
-    
+
+    $(".editButton").on("click", function () {
+        var place = $(this).attr('val');
+        //alert(place);
+
+        $("#editDialog").dialog("open");
+        $("#editForm").val(place);
+        //var firstName =$("#firstName") .val();
+
+        $("#editFirstName").val(personArray[place].getFirstName());
+        $("#editLastName").val(personArray[place].getLastName());
+        $("#editAddress").val(personArray[place].getAddress());
+
+        $("#editDob").val(personArray[place].getDob());
+        $("#editGender:checked").val(personArray[place].getGender());
+        $("#editCountry").val(personArray[place].getCountry());
+        $("#editCars").val(personArray[place].getCars());
+    });
 }
+
+function editSubmit() {
+
+    var editPersonObj = new Person();
+    var place = $("#editForm").val();
+    var firstName = $("#editFirstName").val();
+    var lastName = $("#editLastName").val();
+    var address = $("#editAddress").val();
+    var dob = $("#editDob").val();
+    var country = $("#editCountry").val();
+    var gender = $("#editGender:checked").val();
+    editPersonObj.setFirstName(firstName);
+    editPersonObj.setLastName(lastName);
+    editPersonObj.setAddress(address);
+    editPersonObj.setDob(dob);
+    editPersonObj.setCountry(country);
+    editPersonObj.setGender(gender);
+
+    personArray[place] = editPersonObj;
+    //editPersonObj.setCars(carsArray);
+    /*editPersonObj.checkData();
+    personObj[place].firstName = firstName;*/
+    /*personArray[place].firstName = editFirstName;*/
+    $("#editDialog").dialog("close");
+    display();
+
+}
+
 //validation function
-function validate(){
+/*function validate(){
     var firstName = $("#firstName").val();
     console.log(firstName.match(regEx));
     var lastName = $("#lastName").val();
@@ -282,21 +372,21 @@ function validate(){
        $("#errorCount").html(error);
         $("#dialog").dialog("open");
     }
-    
-   
-  /*  if (error>0){
-        $(".error.msg").show();
-    }else{
-        $(".error.msg").hide();
-    }
-    console.log(error + " errors found");*/
-}
+    */
 
-function toggleHide(){
-    
-    if ($("#sample").is(":visible")){
+/*  if (error>0){
+      $(".error.msg").show();
+  }else{
+      $(".error.msg").hide();
+  }
+  console.log(error + " errors found");*/
+//}
+
+function toggleHide() {
+
+    if ($("#sample").is(":visible")) {
         $("#sample").hide();
-    }else{
+    } else {
         $("#sample").show();
     }
 }
